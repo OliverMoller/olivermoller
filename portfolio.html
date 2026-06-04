@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oliver Møller</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue-deep:   #0a1628;
+      --blue-dark:   #0d2044;
+      --blue-mid:    #1a3a6e;
+      --blue-accent: #2563eb;
+      --blue-light:  #3b82f6;
+      --blue-glow:   #60a5fa;
+      --blue-pale:   #dbeafe;
+      --white:       #ffffff;
+      --gray-100:    #f0f4ff;
+      --gray-300:    #94a3b8;
+      --gray-500:    #64748b;
+      --text:        #e2e8f0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--blue-deep);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 6vw;
+      background: rgba(10, 22, 40, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(37, 99, 235, 0.15);
+    }
+
+    nav .logo {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--white);
+      letter-spacing: -0.02em;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    nav ul a {
+      color: var(--gray-300);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    nav ul a:hover { color: var(--blue-glow); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 10rem 6vw 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      left: -10%;
+      width: 80vw;
+      height: 80vh;
+      background: radial-gradient(ellipse at center, rgba(37,99,235,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: -5%;
+      width: 50vw;
+      height: 50vh;
+      background: radial-gradient(ellipse at center, rgba(96,165,250,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--blue-light);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(3.5rem, 9vw, 8rem);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -0.04em;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--blue-light) 0%, var(--blue-glow) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--gray-300);
+      max-width: 560px;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 3rem;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 1rem;
+      border-radius: 2rem;
+      border: 1px solid rgba(59, 130, 246, 0.35);
+      background: rgba(37, 99, 235, 0.1);
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--blue-glow);
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      border-radius: 0.5rem;
+      background: var(--blue-accent);
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: background 0.2s, transform 0.15s;
+      width: fit-content;
+    }
+
+    .hero-cta:hover {
+      background: var(--blue-light);
+      transform: translateY(-2px);
+    }
+
+    /* ── SECTION SHARED ── */
+    section {
+      padding: 6rem 6vw;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--blue-light);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .section-desc {
+      color: var(--gray-300);
+      font-size: 1rem;
+      line-height: 1.7;
+      max-width: 560px;
+      margin-bottom: 3rem;
+    }
+
+    /* ── ABOUT ── */
+    .about {
+      background: rgba(13, 32, 68, 0.4);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--gray-300);
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    .about-text p:last-child { margin-bottom: 0; }
+
+    .about-text strong { color: var(--blue-glow); font-weight: 600; }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .stat-card {
+      background: rgba(10, 22, 40, 0.8);
+      border: 1px solid rgba(37, 99, 235, 0.2);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+
+    .stat-card:hover { border-color: rgba(59, 130, 246, 0.5); }
+
+    .stat-card .number {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--blue-glow);
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+
+    .stat-card .label {
+      font-size: 0.82rem;
+      color: var(--gray-300);
+      font-weight: 500;
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: rgba(13, 32, 68, 0.6);
+      border: 1px solid rgba(37, 99, 235, 0.2);
+      border-radius: 1rem;
+      padding: 2rem;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(37,99,235,0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(59, 130, 246, 0.5);
+      box-shadow: 0 12px 40px rgba(37, 99, 235, 0.15);
+    }
+
+    .project-card.placeholder {
+      border-style: dashed;
+      opacity: 0.55;
+      cursor: default;
+    }
+
+    .project-card.placeholder:hover {
+      transform: none;
+      box-shadow: none;
+    }
+
+    .project-icon {
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: 0.6rem;
+      background: rgba(37, 99, 235, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .project-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.02em;
+    }
+
+    .project-card p {
+      font-size: 0.875rem;
+      color: var(--gray-300);
+      line-height: 1.65;
+      flex: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .project-tag {
+      padding: 0.25rem 0.65rem;
+      border-radius: 0.3rem;
+      background: rgba(37, 99, 235, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--blue-glow);
+      letter-spacing: 0.03em;
+    }
+
+    .project-arrow {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      color: var(--blue-glow);
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.2s;
+      font-size: 1.1rem;
+    }
+
+    .project-card:not(.placeholder):hover .project-arrow {
+      opacity: 1;
+      transform: translate(2px, -2px);
+    }
+
+    /* ── INTERESTS ── */
+    .interests {
+      background: rgba(13, 32, 68, 0.4);
+    }
+
+    .interests-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .interest-item {
+      padding: 0.7rem 1.25rem;
+      border-radius: 0.6rem;
+      background: rgba(10, 22, 40, 0.8);
+      border: 1px solid rgba(37, 99, 235, 0.2);
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 3rem 6vw;
+      border-top: 1px solid rgba(37, 99, 235, 0.15);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    footer .footer-name {
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    footer .footer-copy {
+      font-size: 0.82rem;
+      color: var(--gray-500);
+    }
+
+    footer .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    footer .footer-links a {
+      color: var(--gray-300);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    footer .footer-links a:hover { color: var(--blue-glow); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav ul { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">OM</div>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#interests">Interests</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-eyebrow">Portfolio</p>
+    <h1>Oliver<br /><span>Møller</span></h1>
+    <p class="hero-sub">
+      I study HA Business Economics at SDU in Vejle and spend a lot of my time working on accounting and finance projects that I find interesting.
+    </p>
+    <div class="hero-tags">
+      <span class="tag">📊 Accounting</span>
+      <span class="tag">💹 Finance</span>
+      <span class="tag">📈 Data</span>
+      <span class="tag">🎓 4th Semester</span>
+    </div>
+    <a href="#projects" class="hero-cta">View projects ↓</a>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <p class="section-label">Background</p>
+    <div class="about-grid">
+      <div class="about-text">
+        <h2 class="section-title">About me</h2>
+        <p>
+          I am in my 4th semester studying HA Business Economics at SDU and live in Vejle. I find accounting and finance genuinely interesting, not just as part of my degree but on my own time too.
+        </p>
+        <p>
+          The projects on this site are things I have built because I wanted to, not because I had to. Most of them started with a question I wanted to answer or a topic I wanted to understand better.
+        </p>
+        <p>
+          I work a lot with financial statement analysis, company valuation and financial modelling.
+        </p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card">
+          <div class="number">SDU</div>
+          <div class="label">University of Southern Denmark</div>
+        </div>
+        <div class="stat-card">
+          <div class="number">4th</div>
+          <div class="label">Semester · HA Business Economics</div>
+        </div>
+        <div class="stat-card">
+          <div class="number">Vejle</div>
+          <div class="label">Based in</div>
+        </div>
+        <div class="stat-card">
+          <div class="number">DK</div>
+          <div class="label">Denmark</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <p class="section-label">Work</p>
+    <h2 class="section-title">Projects</h2>
+    <p class="section-desc">
+      A collection of accounting and finance projects I have worked on in my own time. Click on one to read more.
+    </p>
+
+    <div class="projects-grid">
+
+      <!-- PLACEHOLDER CARDSreplace with your own projects -->
+      <div class="project-card placeholder">
+        <div class="project-icon">📁</div>
+        <h3>Your first project</h3>
+        <p>Upload your first accounting or finance project here. Add a short description of what it covers.</p>
+        <div class="project-tags">
+          <span class="project-tag">Accounting</span>
+          <span class="project-tag">Analysis</span>
+        </div>
+      </div>
+
+      <div class="project-card placeholder">
+        <div class="project-icon">📁</div>
+        <h3>Your second project</h3>
+        <p>Add another project heree.g. a company valuation, DCF model, or financial statement analysis.</p>
+        <div class="project-tags">
+          <span class="project-tag">Finance</span>
+          <span class="project-tag">Modelling</span>
+        </div>
+      </div>
+
+      <div class="project-card placeholder">
+        <div class="project-icon">📁</div>
+        <h3>Coming soon</h3>
+        <p>More on the way. Check back as projects are uploaded.</p>
+        <div class="project-tags">
+          <span class="project-tag">Coming soon</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- INTERESTS -->
+  <section class="interests" id="interests">
+    <p class="section-label">Academic interests</p>
+    <h2 class="section-title">What I find interesting</h2>
+    <p class="section-desc">Topics I keep coming back to.</p>
+    <div class="interests-list">
+      <div class="interest-item">Financial Statement Analysis</div>
+      <div class="interest-item">Company Valuation</div>
+      <div class="interest-item">Corporate Finance</div>
+      <div class="interest-item">Financial Markets</div>
+      <div class="interest-item">Excel & Modelling</div>
+      <div class="interest-item">Data Analysis</div>
+      <div class="interest-item">Strategy & Competitive Analysis</div>
+      <div class="interest-item">Macroeconomics</div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>
+      <div class="footer-name">Oliver Møller</div>
+      <div class="footer-copy">HA Business Economics · SDU · Vejle</div>
+    </div>
+    <div class="footer-links">
+      <a href="mailto:olivermwm@gmail.com">Email</a>
+      <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+    </div>
+  </footer>
+
+</body>
+</html>
